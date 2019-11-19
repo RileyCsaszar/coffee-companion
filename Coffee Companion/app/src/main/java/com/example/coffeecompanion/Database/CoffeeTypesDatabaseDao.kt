@@ -23,6 +23,6 @@ interface CoffeeTypesDatabaseDao {
     @Query("select * from coffee_types_table order by coffeeId desc limit 1")
     fun getLastCoffee(): CoffeeType?
 
-    @Query("select * from coffee_types_table order by coffeeId desc")
+    @Query("select * from coffee_types_table order by priority desc")
     fun getAllCoffee(): LiveData<List<CoffeeType>>
 }

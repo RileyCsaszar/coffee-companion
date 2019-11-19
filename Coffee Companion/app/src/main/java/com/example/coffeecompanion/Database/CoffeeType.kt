@@ -22,5 +22,8 @@ data class CoffeeType (
     val instructions: String = "",
 
     @ColumnInfo(name = "amount")
-    val amount: Double = 0.0
+    val amount: Double = 0.0,
+
+    @ColumnInfo(name = "priority")
+    val priority: Int
     )
