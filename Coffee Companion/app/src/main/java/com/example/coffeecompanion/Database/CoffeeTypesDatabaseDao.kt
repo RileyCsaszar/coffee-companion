@@ -25,4 +25,7 @@ interface CoffeeTypesDatabaseDao {
 
     @Query("select * from coffee_types_table order by priority desc")
     fun getAllCoffee(): LiveData<List<CoffeeType>>
+
+    @Query("select count(*) from coffee_types_table")
+    fun getNumEntries(): Int
 }
