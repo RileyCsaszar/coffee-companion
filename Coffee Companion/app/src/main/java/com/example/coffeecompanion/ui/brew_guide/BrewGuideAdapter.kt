@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.example.coffeecompanion.Database.CoffeeType
 import com.example.coffeecompanion.R
 
-data class BrewTypeData(var brewName: String, var groundSize: String,
-                        var coffeeQuantity: String, var time: String, var instructions: String)
+//data class BrewTypeData(var brewName: String, var groundSize: String,
+//                        var coffeeQuantity: String, var time: String, var instructions: String)
 
 class BrewGuideAdapter(
     context: Context,
     private val layoutResource: Int,
-    brewList: List<BrewTypeData>
-) : ArrayAdapter<BrewTypeData>(context, layoutResource, brewList) {
+    brewList: List<CoffeeType>
+) : ArrayAdapter<CoffeeType>(context, layoutResource, brewList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view: View
@@ -37,10 +38,10 @@ class BrewGuideAdapter(
             val timeText = view.findViewById(R.id.brew_item_time) as TextView
             val instructionsText = view.findViewById(R.id.brew_item_instructions) as TextView
 
-            titleText.text = currentBrew.brewName
-            grindText.text = "Grind size: " + currentBrew.groundSize
-            amountText.text = "Quantity: " + currentBrew.coffeeQuantity
-            timeText.text = "Time: " + currentBrew.time
+            titleText.text = currentBrew.name
+            grindText.text = "Grind size: " + currentBrew.grind
+            amountText.text = "Quantity: " + currentBrew.amount
+            timeText.text = "Time: " + currentBrew.minsToBrew
             instructionsText.text = "Instructions: " + currentBrew.instructions
         }
 

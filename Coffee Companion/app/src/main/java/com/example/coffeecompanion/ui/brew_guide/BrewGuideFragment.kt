@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.coffeecompanion.Database.CoffeeType
 import com.example.coffeecompanion.Database.CoffeeTypesDatabase
 import com.example.coffeecompanion.databinding.FragmentBrewGuideBinding
 import com.example.coffeecompanion.R
@@ -32,22 +34,16 @@ class BrewGuideFragment : Fragment() {
         val viewModelFactory = BrewGuideViewModelFactory(dataSource,application)
         val brewGuideViewModel = ViewModelProviders.of(this,viewModelFactory).get(BrewGuideViewModel::class.java)
 
-        val your_array_list = ArrayList<BrewTypeData>()
-        your_array_list.add(BrewTypeData("Name", "Size",
-            "Quantity", "Time", "Instructions"))
-        your_array_list.add(BrewTypeData("Name2", "Size2",
-            "Quantity2", "Time2", "Instructions2"))
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        val arrayAdapter = BrewGuideAdapter(
-            requireContext(),
-            R.layout.brew_list_item,
-            your_array_list
-        )
-
-        binding.brewList.adapter = arrayAdapter
+        //wait for the data to populate
+        brewGuideViewModel.coffee.observe(this, Observer<List<CoffeeType>> { data: List<CoffeeType>? ->
+            // Update the UI.
+            val arrayAdapter = BrewGuideAdapter(
+                requireContext(),
+                R.layout.brew_list_item,
+                brewGuideViewModel.coffee.value!!
+            )
+            binding.brewList.adapter = arrayAdapter
+        })
 
         binding.setLifecycleOwner(this)
         binding.brewGuideViewModel = brewGuideViewModel

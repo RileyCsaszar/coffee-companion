@@ -7,14 +7,14 @@ import com.example.coffeecompanion.Database.CoffeeTypesDatabaseDao
 import kotlinx.coroutines.*
 
 
-private var viewModelJob = Job()
-private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-private lateinit var coffee: LiveData<List<CoffeeType>>
-
 class BrewGuideViewModel(
     val database: CoffeeTypesDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    public lateinit var coffee: LiveData<List<CoffeeType>>
 
     init {
         initializeCoffee()
@@ -35,8 +35,6 @@ class BrewGuideViewModel(
         uiScope.launch {
             setCoffee()
         }
-
-
     }
 
     private suspend fun setCoffee() {
