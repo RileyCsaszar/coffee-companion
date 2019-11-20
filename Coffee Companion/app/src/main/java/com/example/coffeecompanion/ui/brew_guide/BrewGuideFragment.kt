@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.coffeecompanion.Database.CoffeeTypesDatabase
 import com.example.coffeecompanion.databinding.FragmentBrewGuideBinding
 import com.example.coffeecompanion.R
 
 
 class BrewGuideFragment : Fragment() {
 
-    private lateinit var homeViewModel: BrewGuideViewModel
+    //private lateinit var homeViewModel: BrewGuideViewModel
 
     private lateinit var binding: FragmentBrewGuideBinding
 
@@ -25,7 +26,11 @@ class BrewGuideFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentBrewGuideBinding>(inflater,
             R.layout.fragment_brew_guide,container,false)
 
-        homeViewModel = ViewModelProviders.of(this).get(BrewGuideViewModel::class.java)
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = CoffeeTypesDatabase.getInstance(application).coffeeTypesDatabaseDao
+        val viewModelFactory = BrewGuideViewModelFactory(dataSource,application)
+        val brewGuideViewModel = ViewModelProviders.of(this,viewModelFactory).get(BrewGuideViewModel::class.java)
 
         val your_array_list = ArrayList<BrewTypeData>()
         your_array_list.add(BrewTypeData("Name", "Size",
@@ -43,6 +48,9 @@ class BrewGuideFragment : Fragment() {
         )
 
         binding.brewList.adapter = arrayAdapter
+
+        binding.setLifecycleOwner(this)
+        binding.brewGuideViewModel = brewGuideViewModel
 
         return binding.root
     }
