@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_brew_guide">Brewing Guide</string>
+    <string name="prefix_grind_size">Grind Size:</string>
+    <string name="prefix_quantity">Quantity: </string>
+    <string name="prefix_brew_time">Time: </string>
+    <string name="prefix_instruction">"Instructions: "</string>
 </resources>

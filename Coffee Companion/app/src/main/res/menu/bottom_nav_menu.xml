@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_brew_guide"
+        android:title="@string/title_brew_guide" />
 
     <item
         android:id="@+id/navigation_dashboard"

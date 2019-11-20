@@ -1,10 +1,10 @@
-package com.example.coffeecompanion.ui.home
+package com.example.coffeecompanion.ui.brew_guide
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class BrewGuideViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
