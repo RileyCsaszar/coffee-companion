@@ -9,4 +9,9 @@
     <string name="prefix_brew_time">Time: </string>
     <string name="prefix_instruction">"Instructions: "</string>
     <string name="favorite">Favorite</string>
+    <string name="coffeeName">Name of Brewing Method</string>
+    <string name="coffeeTime">Minutes to Brew</string>
+    <string name="coffeeGrind">Grind of Coffee</string>
+    <string name="coffeeInstructions">Instructions</string>
+    <string name="coffeeAmount">Amount of Coffee this makes</string>
 </resources>

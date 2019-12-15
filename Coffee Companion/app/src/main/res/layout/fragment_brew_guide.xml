@@ -9,7 +9,7 @@
                     type="com.example.coffeecompanion.ui.brew_guide.BrewGuideViewModel" />
         </data>
 
-<LinearLayout
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,6 +17,19 @@
         <ListView
             android:id="@+id/brew_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-</LinearLayout>
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/brew_guide_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            app:backgroundTint="@color/design_default_color_primary"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+
+</FrameLayout>
 </layout>

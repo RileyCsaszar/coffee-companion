@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:elevation="4dp" >
+
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/coffeeName"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffeeName"
+            android:id="@+id/coffee_name"
+            android:inputType="textShortMessage"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/coffeeTime"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/coffee_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffeeTime"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/coffeeGrind"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/coffee_grind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffeeGrind"
+            android:inputType="textShortMessage"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/coffeeAmount"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/coffee_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffeeAmount"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/coffeeInstructions"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/coffee_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffeeInstructions"
+            android:inputType="textMultiLine"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

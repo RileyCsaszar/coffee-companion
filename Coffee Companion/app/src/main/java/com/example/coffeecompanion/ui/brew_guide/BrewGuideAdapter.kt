@@ -2,6 +2,7 @@ package com.example.coffeecompanion.ui.brew_guide
 
 import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.view.Gravity
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.View
@@ -66,15 +67,16 @@ class BrewGuideAdapter(
                 ranking.setImageResource(R.drawable.star_full)
             } else ranking.setImageResource(R.drawable.star_empty)
             ranking.setOnClickListener{view:View ->
+                var toast: Toast
                 if (currentBrew.priority != 0) {
-                    //ranking.setImageResource(R.drawable.star_empty)
+                    toast = Toast.makeText(this.context,"Unfavorited This Coffee :(", Toast.LENGTH_SHORT)
                     GlobalScope.launch { (fragment.updateData(0,currentBrew)) }
-                    //notifyDataSetChanged()
                 } else {
-                    //ranking.setImageResource(R.drawable.star_full)
+                    toast = Toast.makeText(this.context,"Favorited This Coffee :)", Toast.LENGTH_SHORT)
                     GlobalScope.launch { (fragment.updateData(1,currentBrew)) }
-                    //notifyDataSetChanged()
                 }
+                toast.setGravity(Gravity.BOTTOM,0,256)
+                toast.show()
                 notifyDataSetChanged()
             }
         }
