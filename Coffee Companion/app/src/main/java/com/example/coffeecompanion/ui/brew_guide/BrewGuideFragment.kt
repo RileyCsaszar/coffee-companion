@@ -25,7 +25,7 @@ class BrewGuideFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentBrewGuideBinding>(inflater,
+        binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_brew_guide,container,false)
 
 

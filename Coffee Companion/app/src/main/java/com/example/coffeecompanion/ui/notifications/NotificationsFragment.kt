@@ -15,35 +15,41 @@ import com.example.coffeecompanion.R
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import com.example.coffeecompanion.databinding.FragmentNotificationsBinding
 import org.w3c.dom.Text
 
 
-public lateinit var root: View;
+//public lateinit var root: View;
+
+lateinit var binding: FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
-    private lateinit var mDetector: GestureDetectorCompat;
+    private lateinit var mDetector: GestureDetectorCompat
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false)
         notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        root = inflater.inflate(com.example.coffeecompanion.R.layout.fragment_notifications, container, false)
+        //root = inflater.inflate(com.example.coffeecompanion.R.layout.fragment_notifications, container, false)
 
-        val linlay = root.findViewById<LinearLayout>(com.example.coffeecompanion.R.id.linlay);
+        val linlay = binding.linlay;
         mDetector = GestureDetectorCompat(getActivity(), MyGestureListener())
 
         linlay.setOnTouchListener(touchListener)
-        return root
+        return binding.root
     }
 
     fun onSwipeRight(){
-        var image = root.findViewById<ImageView>(R.id.imageView)
+        var image = binding.imageView
         image.setImageResource(R.drawable.pourover)
     }
 
@@ -74,16 +80,16 @@ class NotificationsFragment : Fragment() {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            var image = root.findViewById<ImageView>(R.id.imageView)
+                            var image = binding.imageView
                             image.setImageResource(R.drawable.pourover)
-                            root.findViewById<TextView>(R.id.timeText).setText("3:30")
-                            root.findViewById<TextView>(R.id.brewTitle).setText("Pourover")
+                            binding.timeText.setText("3:30")
+                            binding.brewTitle.setText("Pourover")
                             Log.i("fling", "right")
                         } else {
-                            var image = root.findViewById<ImageView>(R.id.imageView)
+                            var image = binding.imageView
                             image.setImageResource(R.drawable.frenchpress)
-                            root.findViewById<TextView>(R.id.timeText).setText("5:00")
-                            root.findViewById<TextView>(R.id.brewTitle).setText("French Press")
+                            binding.timeText.setText("5:00")
+                            binding.brewTitle.setText("French Press")
                             Log.i("fling", "left")
                         }
                     }

@@ -8,4 +8,5 @@
     <string name="prefix_quantity">Quantity: </string>
     <string name="prefix_brew_time">Time: </string>
     <string name="prefix_instruction">"Instructions: "</string>
+    <string name="favorite">Favorite</string>
 </resources>
