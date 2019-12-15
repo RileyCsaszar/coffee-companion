@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity()  {
             setOf(
                 R.id.navigation_brew_guide, R.id.navigation_dashboard, R.id.navigation_notifications
             )
-        )
+       )
 
 
         setupActionBarWithNavController(navController, appBarConfiguration)
