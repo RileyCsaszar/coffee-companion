@@ -28,4 +28,7 @@ interface CoffeeTypesDatabaseDao {
 
     @Query("select count(*) from coffee_types_table")
     fun getNumEntries(): Int
+
+    @Query("update coffee_types_table set priority = :priority where coffeeId = :key")
+    fun setPriority(priority: Int, key: Long)
 }
