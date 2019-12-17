@@ -32,4 +32,5 @@
     <string name="button_flavor">Flavor</string>
     <string name="button_caffeine">Caffeine</string>
     <string name="button_submit">Submit Answers</string>
+    <string name="brewTimer">Brew Timer</string>
 </resources>
