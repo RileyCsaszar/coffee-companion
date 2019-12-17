@@ -8,16 +8,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/result_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:visibility="gone"/>
 
         <ScrollView
+            android:id="@+id/quiz_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -27,27 +37,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Do you often find yourself running late in the morning?"
+                    android:text="@string/quiz_question_1"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q1Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="yes" />
+                        android:text="@string/button_yes"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q1Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="no" />
-                </LinearLayout>
+                        android:text="@string/button_no"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -55,27 +70,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Are you detail oriented and methodical?"
+                    android:text="@string/quiz_question_2"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q2Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="yes" />
+                        android:text="@string/button_yes"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q2Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="no" />
-                </LinearLayout>
+                        android:text="@string/button_no"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -83,27 +103,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Are you a clean freak?"
+                    android:text="@string/quiz_question_3"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q3Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="yes" />
+                        android:text="@string/button_yes"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q3Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="no" />
-                </LinearLayout>
+                        android:text="@string/button_no"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -111,27 +136,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="What time of day do you usually make coffee?"
+                    android:text="@string/quiz_question_4"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q4Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="In the morning" />
+                        android:text="@string/button_morning"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q4Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="All times of the day" />
-                </LinearLayout>
+                        android:text="@string/button_all_day"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -139,27 +169,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="How do you like your coffee?"
+                    android:text="@string/quiz_question_5"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q5Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Black" />
+                        android:text="@string/button_black"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q5Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Doctored" />
-                </LinearLayout>
+                        android:text="@string/button_doctored"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -167,27 +202,32 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="What is your coffee brewing budget?"
+                    android:text="@string/quiz_question_6"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q6Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$75 or less" />
+                        android:text="@string/button_75"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q6Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$75 or more" />
-                </LinearLayout>
+                        android:text="@string/button_76"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -195,29 +235,39 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Do you or would you like to drink coffee for the flavor or caffeine?"
+                    android:text="@string/quiz_question_7"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="30sp"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q7Option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Flavor" />
+                        android:text="@string/button_flavor"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="10sp"/>
 
-                    <Button
+                    <RadioButton
+                        android:id="@+id/q7Option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Caffeine" />
-                </LinearLayout>
+                        android:text="@string/button_caffeine"
+                        android:textSize="30sp"/>
+                </RadioGroup>
 
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_submit"
+                    android:visibility="gone"/>
 
             </LinearLayout>
         </ScrollView>

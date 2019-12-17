@@ -6,8 +6,33 @@ import androidx.lifecycle.ViewModel
 
 class DashboardViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private var answers = Array(7) {0}
+
+    // 0 = no answer
+    // 1 = top answer
+    // 2 = bottom answer
+    fun changeAnswer(index : Int, answer : Int) : Boolean{
+        answers[index] = answer
+
+        // check if any other questions need answers
+        for (item in answers){
+            if (item == 0) {
+                return false
+            }
+        }
+        // all questions have been answered
+        return true
     }
-    val text: LiveData<String> = _text
+
+    fun calcResult(){
+        for (item in answers){
+            if (item == 1){
+                // do thing
+            }
+            else if (item == 2){
+                // do thing
+            }
+        }
+    }
+
 }
