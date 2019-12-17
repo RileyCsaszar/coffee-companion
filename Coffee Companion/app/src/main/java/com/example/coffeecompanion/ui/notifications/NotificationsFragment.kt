@@ -30,9 +30,11 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
+import com.example.coffeecompanion.Database.CoffeeType
 import com.example.coffeecompanion.Database.CoffeeTypesDatabase
 import com.example.coffeecompanion.Database.CoffeeTypesDatabaseDao
 import com.example.coffeecompanion.databinding.FragmentNotificationsBinding
+import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.popup_layout.*
 import org.w3c.dom.Text
 
@@ -41,9 +43,9 @@ import org.w3c.dom.Text
 
 lateinit var binding: FragmentNotificationsBinding
 private var index: Int = 0;
-private lateinit var coffeeViewmodel: NotificationsViewModel
 private lateinit var timer: CountDownTimer
-private var time: Long = 10000;
+private var gTimez: Long = 10000;
+private var total = 0;
 
 
 class NotificationsFragment : Fragment() {
@@ -52,6 +54,8 @@ class NotificationsFragment : Fragment() {
 
     private lateinit var mDetector: GestureDetectorCompat
     private lateinit var database: CoffeeTypesDatabaseDao
+
+    lateinit var coffee : List<CoffeeType>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,11 +73,23 @@ class NotificationsFragment : Fragment() {
         val time = binding.timeText
         val stop = binding.pausebtn
 
-        //Database stuff
-        val application = requireNotNull(this.activity).application
-        database = CoffeeTypesDatabase.getInstance(application).coffeeTypesDatabaseDao
-        notificationsViewModel.coffee = database.getAllCoffee()
-        coffeeViewmodel = notificationsViewModel
+        var current = activity as MainActivity
+        coffee = current.brewlist
+
+        total = coffee.size
+
+        timer = object : CountDownTimer(300000, 1000) {
+            override fun onTick(p0: Long) {
+                val remainingSecs = p0 / 1000
+                val min = remainingSecs / 60
+                val seconds = remainingSecs % 60
+                binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
+            }
+            override fun onFinish() {
+                sendNotification()
+            }
+        }
+        setResources()
 
         //Gesture things
         mDetector = GestureDetectorCompat(getActivity(), MyGestureListener())
@@ -86,17 +102,6 @@ class NotificationsFragment : Fragment() {
     }
 
     fun startTimer() {
-        timer = object : CountDownTimer(time, 1000) {
-            override fun onTick(p0: Long) {
-                val remainingSecs = p0 / 1000
-                val min = remainingSecs / 60
-                val seconds = remainingSecs % 60
-                binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
-            }
-            override fun onFinish() {
-                sendNotification()
-            }
-        }
         timer.start()
         binding.pausebtn.visibility = View.VISIBLE
     }
@@ -117,13 +122,46 @@ class NotificationsFragment : Fragment() {
             // a return value of true means the detector is handling it
             // a return value of false means the detector didn't
             // recognize the event
-            if(mDetector.onTouchEvent(event)){
-                Log.i("fling", "left")
-            }
-            else{
-                Log.i("fling", "right")
-            }
+                //Get the proper image
+            setResources()
             return mDetector.onTouchEvent(event)
+        }
+    }
+    fun setResources(){
+        Log.i("fling", "HI")
+        val name = coffee[index].name
+        //getImage(name)
+
+        //Set time
+        var time = coffee[index].minsToBrew
+        time *= 60
+        val min = time / 60
+        val seconds = time % 60
+        binding.timeText.setText("" + min.toInt() + ":" + (if (seconds < 10) "0" + seconds.toInt() else seconds.toInt()) + "")
+
+        //Set the timer
+        timer.cancel()
+
+        timer = object : CountDownTimer(time.toLong()*1000, 1000) {
+            override fun onTick(p0: Long) {
+                val remainingSecs = p0 / 1000
+                val min = remainingSecs / 60
+                val seconds = remainingSecs % 60
+                binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
+            }
+            override fun onFinish() {
+                sendNotification()
+            }
+        }
+        //Set title
+        binding.brewTitle.setText(name)
+
+        if(name =="French Press"){
+            binding.imageView.setImageResource(R.drawable.frenchpress)
+        }else if(name=="Pour Over"){
+            binding.imageView.setImageResource(R.drawable.pourover)
+        }else{
+            binding.imageView.setImageResource(R.drawable.icon)
         }
     }
 
@@ -182,10 +220,8 @@ class NotificationsFragment : Fragment() {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0 && index != 0) {
                             index--;
-                            
-                        } else {
+                        } else if(index < total-1 && diffX < 0){
                             index++;
-
                         }
                     }
                 } else {
@@ -196,45 +232,5 @@ class NotificationsFragment : Fragment() {
             }
             return result
         }
-
-        fun getImage(brew: String) {
-            //Get the image for the brew method
-            return image.setImageResource(R.drawable.frenchpress)
-        }
-
-        fun makeTimer(ms: Int) {
-            timer = object : CountDownTimer(10000, 1000) {
-                override fun onTick(p0: Long) {
-                    val remainingSecs = p0 / 1000
-                    val min = remainingSecs / 60
-                    val seconds = remainingSecs % 60
-                    binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
-                }
-
-                override fun onFinish() {
-//                    sendNotification()
-                }
-            }
-        }
     }
 }
-
-//
-//
-//                            index++;
-//                            //Get the proper image
-//                            val name = coffeeViewmodel.coffee.value!![index].name
-//                            getImage(name)
-//
-//                            //Set time
-//                            var time = coffeeViewmodel.coffee.value!![index].minsToBrew
-//                            time *= 60
-//                            val min = time / 60
-//                            val seconds = time % 60
-//                            binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
-//
-//                            //Set the timer
-//                            makeTimer((time * 1000) as Int);
-//                            //Set title
-//                            binding.brewTitle.setText(name)
-////                            Log.i("fling", "right")

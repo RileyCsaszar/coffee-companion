@@ -37,8 +37,12 @@ class DashboardViewModel : ViewModel() {
             if (j == 0){
                 if (answers[j]==1){
                     var i = 0;
-                    for(pos in coffee){
-                        if (coffee.get(i).minsToBrew <= 4 ){
+                    for(pos in coffee/**/){
+                        if (coffee.get(i).minsToBrew <= 1.5 ){
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
                             result[i]++
                         }
                         i++
@@ -47,20 +51,18 @@ class DashboardViewModel : ViewModel() {
                 if (answers[j]==2){
                     var i = 0;
                     for(pos in coffee){
-                        if (coffee.get(i).minsToBrew >= 4 ){
+                        if (coffee.get(i).minsToBrew >= 2 ){
                             result[i]++
                         }
                         i++
                     }
                 }
-
             }
             else if (j == 1){
                 if (answers[j]==1){
                     var i = 0;
                     for(pos in coffee){
                         if (coffee.get(i).instructions.length <= 500 ){
-                            result[i]++
                             result[i]++
                         }
                         i++
@@ -70,6 +72,7 @@ class DashboardViewModel : ViewModel() {
                     var i = 0;
                     for(pos in coffee){
                         if (coffee.get(i).instructions.length >= 500 ){
+                            result[i]++
                             result[i]++
                         }
                         i++
@@ -81,7 +84,6 @@ class DashboardViewModel : ViewModel() {
                     var i = 0;
                     for(pos in coffee){
                         if (coffee.get(i).amount <= 16.5 ){
-                            result[i]++
                             result[i]++
                         }
                         i++
@@ -102,7 +104,7 @@ class DashboardViewModel : ViewModel() {
                 if (answers[j]==1){
                     var i = 0;
                     for(pos in coffee){
-                        if (coffee.get(i).minsToBrew >= 4 ){
+                        if (coffee.get(i).minsToBrew <= 4 ){
                             result[i]++
                         }
                         i++
@@ -111,7 +113,16 @@ class DashboardViewModel : ViewModel() {
                 if (answers[j]==2){
                     var i = 0;
                     for(pos in coffee){
-                        if (coffee.get(i).minsToBrew <= 4 ){
+                        if (coffee.get(i).minsToBrew >= 750 ){
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
                             result[i]++
                             result[i]++
                         }
@@ -145,7 +156,12 @@ class DashboardViewModel : ViewModel() {
                 if (answers[j]==1){
                     var i = 0;
                     for(pos in coffee){
-                        if (coffee.get(i).minsToBrew >= 10 ){
+                        if (coffee.get(i).minsToBrew.equals(5) || coffee.get(i).minsToBrew.equals(3) ){
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
+                            result[i]++
                             result[i]++
                         }
                         i++
@@ -165,7 +181,9 @@ class DashboardViewModel : ViewModel() {
                 if (answers[j]==1){
                     var i = 0;
                     for(pos in coffee){
-                        if (coffee.get(i).amount <= 16.5 ){
+                        if (coffee.get(i).amount <= 16.5 || coffee.get(i).amount.equals(17)  ){
+                            result[i]++
+                            result[i]++
                             result[i]++
                             result[i]++
                         }
