@@ -29,7 +29,11 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import com.example.coffeecompanion.Database.CoffeeTypesDatabase
+import com.example.coffeecompanion.Database.CoffeeTypesDatabaseDao
 import com.example.coffeecompanion.databinding.FragmentNotificationsBinding
+import kotlinx.android.synthetic.main.popup_layout.*
 import org.w3c.dom.Text
 
 
@@ -37,60 +41,72 @@ import org.w3c.dom.Text
 
 lateinit var binding: FragmentNotificationsBinding
 private var index: Int = 0;
+private lateinit var coffeeViewmodel: NotificationsViewModel
+private lateinit var timer: CountDownTimer
+private var time: Long = 10000;
+
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
     private lateinit var mDetector: GestureDetectorCompat
-
+    private lateinit var database: CoffeeTypesDatabaseDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false)
         notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
 
+        //Get objects
         val linlay = binding.linlay
         val start = binding.startbtn
         val time = binding.timeText
         val stop = binding.pausebtn
 
-        mDetector = GestureDetectorCompat(getActivity(), MyGestureListener())
+        //Database stuff
+        val application = requireNotNull(this.activity).application
+        database = CoffeeTypesDatabase.getInstance(application).coffeeTypesDatabaseDao
+        notificationsViewModel.coffee = database.getAllCoffee()
+        coffeeViewmodel = notificationsViewModel
 
+        //Gesture things
+        mDetector = GestureDetectorCompat(getActivity(), MyGestureListener())
         linlay.setOnTouchListener(touchListener)
 
-        val timer = object: CountDownTimer(10000, 1000) {
+        start.setOnClickListener { startTimer() }
+        stop.setOnClickListener { pauseTimer() }
+
+        return binding.root
+    }
+
+    fun startTimer() {
+        timer = object : CountDownTimer(time, 1000) {
             override fun onTick(p0: Long) {
-                val remainingSecs = p0/1000
+                val remainingSecs = p0 / 1000
                 val min = remainingSecs / 60
                 val seconds = remainingSecs % 60
-                time.setText(""+ min + ":" + (if (seconds < 10) "0" + seconds else seconds)+"")
+                binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
             }
             override fun onFinish() {
                 sendNotification()
             }
         }
-
-        start.setOnClickListener{startTimer(timer)}
-        stop.setOnClickListener{pauseTimer(timer)}
-
-        return binding.root
-    }
-
-    fun startTimer(timer :CountDownTimer){
         timer.start()
         binding.pausebtn.visibility = View.VISIBLE
     }
-    fun pauseTimer(timer: CountDownTimer){
+
+    fun pauseTimer() {
         timer.cancel()
     }
 
 
-    fun onSwipeRight(){
+    fun onSwipeRight() {
         var image = binding.imageView
         image.setImageResource(R.drawable.pourover)
     }
@@ -101,19 +117,28 @@ class NotificationsFragment : Fragment() {
             // a return value of true means the detector is handling it
             // a return value of false means the detector didn't
             // recognize the event
+            if(mDetector.onTouchEvent(event)){
+                Log.i("fling", "left")
+            }
+            else{
+                Log.i("fling", "right")
+            }
             return mDetector.onTouchEvent(event)
         }
     }
 
 
-    fun sendNotification(){
+    public fun sendNotification() {
         var channel_ID = "brew_alarm"
-        var nm : NotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var nm: NotificationManager =
+            context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channel_ID,
+            val channel = NotificationChannel(
+                channel_ID,
                 "brew_alarm_channel",
-                NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             channel.description = "Channel for the brew timer alarm"
             nm.createNotificationChannel(channel)
         }
@@ -138,9 +163,11 @@ class NotificationsFragment : Fragment() {
         nm.notify(0, b.build())
     }
 
-    private class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
+
+    class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
         private val SWIPE_THRESHOLD = 100
         private val SWIPE_VELOCITY_THRESHOLD = 100
+        var image = binding.imageView
         override fun onFling(
             e1: MotionEvent,
             e2: MotionEvent,
@@ -153,19 +180,12 @@ class NotificationsFragment : Fragment() {
                 val diffX = e2.x - e1.x
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffX > 0) {
-//                            index--;
-                            var image = binding.imageView
-                            image.setImageResource(R.drawable.pourover)
-                            binding.timeText.setText("3:30")
-                            binding.brewTitle.setText("Pourover")
-                            Log.i("fling", "right")
+                        if (diffX > 0 && index != 0) {
+                            index--;
+                            
                         } else {
-                            var image = binding.imageView
-                            image.setImageResource(R.drawable.frenchpress)
-                            binding.timeText.setText("5:00")
-                            binding.brewTitle.setText("French Press")
-                            Log.i("fling", "left")
+                            index++;
+
                         }
                     }
                 } else {
@@ -177,8 +197,44 @@ class NotificationsFragment : Fragment() {
             return result
         }
 
+        fun getImage(brew: String) {
+            //Get the image for the brew method
+            return image.setImageResource(R.drawable.frenchpress)
+        }
 
+        fun makeTimer(ms: Int) {
+            timer = object : CountDownTimer(10000, 1000) {
+                override fun onTick(p0: Long) {
+                    val remainingSecs = p0 / 1000
+                    val min = remainingSecs / 60
+                    val seconds = remainingSecs % 60
+                    binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
+                }
+
+                override fun onFinish() {
+//                    sendNotification()
+                }
+            }
+        }
     }
-
-
 }
+
+//
+//
+//                            index++;
+//                            //Get the proper image
+//                            val name = coffeeViewmodel.coffee.value!![index].name
+//                            getImage(name)
+//
+//                            //Set time
+//                            var time = coffeeViewmodel.coffee.value!![index].minsToBrew
+//                            time *= 60
+//                            val min = time / 60
+//                            val seconds = time % 60
+//                            binding.timeText.setText("" + min + ":" + (if (seconds < 10) "0" + seconds else seconds) + "")
+//
+//                            //Set the timer
+//                            makeTimer((time * 1000) as Int);
+//                            //Set title
+//                            binding.brewTitle.setText(name)
+////                            Log.i("fling", "right")
