@@ -14,4 +14,22 @@
     <string name="coffeeGrind">Grind of Coffee</string>
     <string name="coffeeInstructions">Instructions</string>
     <string name="coffeeAmount">Amount of Coffee this makes</string>
+    <string name="quiz_question_1">Do you often find yourself running late in the morning?</string>
+    <string name="button_yes">yes</string>
+    <string name="button_no">no</string>
+    <string name="quiz_question_2">Are you detail oriented and methodical?</string>
+    <string name="quiz_question_3">Are you a clean freak?</string>
+    <string name="quiz_question_4">What time of day do you usually make coffee?</string>
+    <string name="button_morning">In the morning</string>
+    <string name="button_all_day">All times of the day</string>
+    <string name="quiz_question_5">How do you like your coffee?</string>
+    <string name="button_black">Black</string>
+    <string name="button_doctored">Doctored</string>
+    <string name="quiz_question_6">What is your coffee brewing budget?</string>
+    <string name="button_75">$75 or less</string>
+    <string name="button_76">$75 or more</string>
+    <string name="quiz_question_7">Do you or would you like to drink coffee for the flavor or caffeine?</string>
+    <string name="button_flavor">Flavor</string>
+    <string name="button_caffeine">Caffeine</string>
+    <string name="button_submit">Submit Answers</string>
 </resources>

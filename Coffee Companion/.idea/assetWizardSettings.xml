@@ -51,11 +51,18 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="57" />
                                               </map>
                                             </option>
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="foregroundImage" value="C:\Users\MckinnisJP2\Documents\2019 Fall\402 Android\Project\coffee-companion\Coffee Companion\app\src\main\res\drawable\icon.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
