@@ -1,8 +1,11 @@
 package com.example.coffeecompanion.ui.notifications
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.media.Image
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +26,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import com.example.coffeecompanion.databinding.FragmentNotificationsBinding
@@ -49,7 +53,6 @@ class NotificationsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false)
         notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        //root = inflater.inflate(com.example.coffeecompanion.R.layout.fragment_notifications, container, false)
 
         val linlay = binding.linlay
         val start = binding.startbtn
@@ -60,55 +63,22 @@ class NotificationsFragment : Fragment() {
 
         linlay.setOnTouchListener(touchListener)
 
-        createNotificationChannel()
-
-        var builder = NotificationCompat.Builder(this.context)
-            .setSmallIcon(R.drawable.frenchpress)
-            .setContentTitle("Coffee timer complete!")
-            .setContentText("Your timer has finished, and your coffee should be ready!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        val timer = object: CountDownTimer(50000, 1000) {
+        val timer = object: CountDownTimer(10000, 1000) {
             override fun onTick(p0: Long) {
                 val remainingSecs = p0/1000
-                val min = remainingSecs / 60;
-                val seconds = remainingSecs % 60;
-                time.setText(""+min + ":" + (if (seconds < 10) "0" + seconds else seconds)+"")
-
+                val min = remainingSecs / 60
+                val seconds = remainingSecs % 60
+                time.setText(""+ min + ":" + (if (seconds < 10) "0" + seconds else seconds)+"")
             }
             override fun onFinish() {
-                with(NotificationManagerCompat.from(context!!)) {
-                    // notificationId is a unique int for each notification that you must define
-                    notify(12345, builder.build())
-                }
+                sendNotification()
             }
         }
-
-
 
         start.setOnClickListener{startTimer(timer)}
         stop.setOnClickListener{pauseTimer(timer)}
 
-
         return binding.root
-    }
-
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "channel"
-            val descriptionText = "A channel"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("CHANNEL", name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE as Context) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-
-        }
     }
 
     fun startTimer(timer :CountDownTimer){
@@ -136,8 +106,36 @@ class NotificationsFragment : Fragment() {
     }
 
 
-    fun displayInfo(){
+    fun sendNotification(){
+        var channel_ID = "brew_alarm"
+        var nm : NotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channel_ID,
+                "brew_alarm_channel",
+                NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = "Channel for the brew timer alarm"
+            nm.createNotificationChannel(channel)
+        }
+
+        var intent = Intent(context, NotificationsFragment::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        var pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
+        var b = NotificationCompat.Builder(context!!, "notification_channel_id")
+
+        b = b.setAutoCancel(true).setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setWhen(System.currentTimeMillis())
+            .setSmallIcon(R.drawable.frenchpress)
+            .setTicker("HELLO")
+            .setContentTitle("Coffee Companion")
+            .setContentText("Brew is finished")
+            .setContentInfo("INFO")
+            .setChannelId(channel_ID)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+
+        nm.notify(0, b.build())
     }
 
     private class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
