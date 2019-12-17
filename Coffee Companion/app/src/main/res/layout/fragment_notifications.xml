@@ -41,11 +41,21 @@
             android:textSize="40sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/startbtn"
             android:layout_width="248dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="100px"
             android:text="Start" />
+
+        <Button
+            android:id="@+id/pausebtn"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100px"
+            android:text="STOP"
+            android:visibility="gone" />
+
     </LinearLayout>
 </layout>
