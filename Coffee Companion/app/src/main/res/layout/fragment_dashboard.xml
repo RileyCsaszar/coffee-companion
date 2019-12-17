@@ -11,14 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:visibility="gone"/>
-
         <ScrollView
             android:id="@+id/quiz_view"
             android:layout_width="match_parent"
@@ -28,7 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <TextView
@@ -272,6 +264,13 @@
             </LinearLayout>
         </ScrollView>
 
+        <TextView
+            android:id="@+id/result_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </layout>
