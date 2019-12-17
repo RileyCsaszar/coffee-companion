@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinner">
+        <item>Course</item>
+        <item>Medium</item>
+        <item>Fine</item>
+    </string-array>
+
+</resources>

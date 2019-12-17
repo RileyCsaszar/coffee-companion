@@ -44,7 +44,7 @@ class BrewGuideViewModel(
                     CoffeeType(
                         name = "French Press",
                         minsToBrew = 4.0,
-                        grind = "Course and even",
+                        grind = "Course",
                         instructions = "boil 350grams(12 oz) and grind 30 grams of coffee at a" +
                                 " coarse grind.  Gently our twice as much water as you have " +
                                 "coffee into the grounds in the pot. Wait 30 seconds then stir" +
@@ -60,7 +60,7 @@ class BrewGuideViewModel(
                     CoffeeType(
                         name = "Pour Over",
                         minsToBrew = 3.0,
-                        grind = "Fine (like sea salt",
+                        grind = "Fine",
                         instructions = "place filter in the dripper. Wet the filter with hot water " +
                                 "then drain that water. Add coffee into filter and gently tap until" +
                                 " the surface is level.  Place over cup on scale.  Start a timer, " +
@@ -78,7 +78,7 @@ class BrewGuideViewModel(
                     CoffeeType(
                         name = "Auto Drip",
                         minsToBrew = 5.0,
-                        grind = "Fine or Medium",
+                        grind = "Fine",
                         instructions = "add water to the reserve and filter and fresh ground coffee " +
                                 "into the Auto Drip. Set machine to brew and wait 2-5 min.  Once " +
                                 "coffee has brewed remove from heating element immediately and enjoy.",
@@ -119,7 +119,7 @@ class BrewGuideViewModel(
                     CoffeeType(
                         name = "Single Serve",
                         minsToBrew = 3.0,
-                        grind = "No Grind",
+                        grind = "Course",
                         instructions = "place water and single cup coffee grounds of choice into " +
                                 "single use coffee maker. Close the maker and place cup under spout. " +
                                 " Press the start button of coffee maker and wait 1-3min.  Enjoy.",
