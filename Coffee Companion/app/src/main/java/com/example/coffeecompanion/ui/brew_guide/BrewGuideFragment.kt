@@ -19,6 +19,7 @@ import kotlinx.coroutines.withContext
 import android.widget.Toast
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import com.example.coffeecompanion.MainActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
@@ -72,6 +73,8 @@ class BrewGuideFragment : Fragment() {
                 brewGuideViewModel.coffee.value!!,
                 this
             )
+            var current = activity as MainActivity
+            current.brewlist = brewGuideViewModel.coffee.value!!
             binding.brewList.adapter = arrayAdapter
         })
     }

@@ -11,8 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.coffeecompanion.Database.CoffeeTypesDatabase
 import com.example.coffeecompanion.Database.CoffeeTypesDatabaseDao
+import com.example.coffeecompanion.MainActivity
 import com.example.coffeecompanion.R
 import com.example.coffeecompanion.databinding.FragmentDashboardBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DashboardFragment : Fragment() {
 
@@ -29,9 +34,8 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
 
-        val application = requireNotNull(this.activity).application
-        database = CoffeeTypesDatabase.getInstance(application).coffeeTypesDatabaseDao
-        dashboardViewModel.coffee = database.getAllCoffee()
+        var current = activity as MainActivity
+        dashboardViewModel.coffee = current.brewlist
 
         binding.q1Option1.setOnClickListener { update(0, 1) }
         binding.q1Option2.setOnClickListener { update(0, 2) }
@@ -56,6 +60,7 @@ class DashboardFragment : Fragment() {
 
         return binding.root
     }
+
     fun update(index : Int, value : Int){
         if(dashboardViewModel.changeAnswer(index, value)){
             binding.submitButton.visibility = View.VISIBLE
