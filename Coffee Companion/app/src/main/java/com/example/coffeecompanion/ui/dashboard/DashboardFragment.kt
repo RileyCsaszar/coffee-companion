@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.coffeecompanion.Database.CoffeeTypesDatabase
+import com.example.coffeecompanion.Database.CoffeeTypesDatabaseDao
 import com.example.coffeecompanion.R
 import com.example.coffeecompanion.databinding.FragmentDashboardBinding
 
@@ -16,6 +18,7 @@ class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     lateinit var binding: FragmentDashboardBinding
+    private lateinit var database : CoffeeTypesDatabaseDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +28,10 @@ class DashboardFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+
+        val application = requireNotNull(this.activity).application
+        database = CoffeeTypesDatabase.getInstance(application).coffeeTypesDatabaseDao
+        dashboardViewModel.coffee = database.getAllCoffee()
 
         binding.q1Option1.setOnClickListener { update(0, 1) }
         binding.q1Option2.setOnClickListener { update(0, 2) }
@@ -42,7 +49,7 @@ class DashboardFragment : Fragment() {
         binding.q7Option2.setOnClickListener { update(6, 2) }
 
         binding.submitButton.setOnClickListener {
-            dashboardViewModel.calcResult()
+            binding.resultText.text = "The best Brew for you is "+dashboardViewModel.calcResult()+"!"
             binding.resultText.visibility = View.VISIBLE
             binding.quizView.visibility = View.GONE
         }
